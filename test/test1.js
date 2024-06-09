@@ -18,7 +18,7 @@ async function test_case() {
         await driver.get("https://devops-proj-testing.web.app/");
 
         // Fill in form fields
-        await driver.findElement(By.id("lastname")).sendKeys("Voloshyn");
+        await driver.findElement(By.xpath('//*[@id="lastname"]')).sendKeys("Voloshyn");
         await driver.findElement(By.id("firstname")).sendKeys("Bohdan");
         await driver.findElement(By.css("td > p:nth-child(4)")).click();
         await driver.findElement(By.id("GroupSize")).sendKeys("10");
