@@ -1,9 +1,10 @@
+// Import necessary modules
 const { By, Key, Builder } = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
+const { until } = require("selenium-webdriver");
 
 async function test_case() {
-
-    //Set Chrome option
+    // Set Chrome options
     let options = new chrome.Options();
     options.addArguments('headless');
     options.addArguments('disable-gpu')
@@ -13,38 +14,29 @@ async function test_case() {
     let driver = await new Builder().forBrowser("chrome").setChromeOptions(options).build();
 
     try {
-        //Send driver to website
+        // Send driver to website
         await driver.get("https://devops-proj-testing.web.app/");
 
-        //Grab an element from the page
-        await driver.findElement(By.id("lastname")).click()
-        // 4 | type | id=lastname | valencia
-        await driver.findElement(By.id("lastname")).sendKeys("valencia")
-        // 5 | click | id=firstname | 
-        await driver.findElement(By.id("firstname")).click()
-        // 6 | type | id=firstname | washington
-        await driver.findElement(By.id("firstname")).sendKeys("washington")
-        // 7 | click | css=td > p:nth-child(4) | 
-        await driver.findElement(By.css("td > p:nth-child(4)")).click()
-        // 8 | type | id=GroupSize | 10
-        await driver.findElement(By.id("GroupSize")).sendKeys("10")
-        // 9 | click | id=addMemberBtn | 
-        await driver.findElement(By.id("addMemberBtn")).click()
+        // Fill in form fields
+        await driver.findElement(By.id("lastname")).sendKeys("Voloshyn");
+        await driver.findElement(By.id("firstname")).sendKeys("Bohdan");
+        await driver.findElement(By.css("td > p:nth-child(4)")).click();
+        await driver.findElement(By.id("GroupSize")).sendKeys("10");
+        await driver.findElement(By.id("addMemberBtn")).click();
 
-        //Check the result
+        // Wait for the select element to be populated with members
+        let countMembers = await driver.wait(until.elementsLocated(By.css("#members option")), 20000);
 
-        let countMembers = len(WebDriverWait(driver, 20).until(EC.visibility_of_all_elements_located((By.XPATH, "//select[@id='members']//option"))))
-
-        if (countMembers > 0) {
+        if (countMembers.length > 0) {
             console.log('Test Success');
         } else {
             console.log('Test Failed');
         }
     } catch (error) {
-        console.log('An error accurred:', error);
+        console.log('An error occurred:', error);
     } finally {
         await driver.quit();
     }
-
 }
+
 test_case();
