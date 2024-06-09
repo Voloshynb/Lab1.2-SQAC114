@@ -13,7 +13,7 @@ pipeline{
         } 
         stage('Testing Environment'){
             steps{
-             sh 'firebase deploy -P devops-proj-staging --token "$FIREBASE_DEPLOY_TOKEN"'
+             sh 'firebase deploy -P testing-replica-a66a5 --token "$FIREBASE_DEPLOY_TOKEN"'
               script{
                 try{
                     //Install Selenium webdriver
