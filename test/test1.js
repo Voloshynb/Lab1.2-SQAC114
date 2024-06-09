@@ -15,10 +15,10 @@ async function test_case() {
 
     try {
         // Send driver to website
-        await driver.get("https://devops-proj-testing.web.app/");
+        await driver.get("https://testing-replica-a66a5.web.app/");
 
         // Fill in form fields
-        await driver.findElement(By.xpath('//*[@id="lastname"]')).sendKeys("Voloshyn");
+        await driver.findElement(By.id("lastname")).sendKeys("Voloshyn");
         await driver.findElement(By.id("firstname")).sendKeys("Bohdan");
         await driver.findElement(By.css("td > p:nth-child(4)")).click();
         await driver.findElement(By.id("GroupSize")).sendKeys("10");
